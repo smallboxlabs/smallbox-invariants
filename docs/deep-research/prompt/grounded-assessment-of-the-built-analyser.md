@@ -4,10 +4,13 @@
 it inferred the concept from public marketing pages rather than assessing an implementation. It researched the
 surrounding category well and the project's own record not at all. This brief supplies the record.
 
-**Read before publishing:** this brief names the products the rules were learned from and two of their real
-defects. Both are the owner's own products, one defect is already described publicly on a corrections page, and
-no credentials, customer data or business rules appear here. Publishing it is still an editorial decision, not a
-mechanical one — decide consciously.
+**Disclosure boundary, corrected 2026-07-26.** An earlier draft of this brief described the second test system
+in identifying detail. **That system is CO-OWNED, and its identity and its defect are withheld pending the other
+owner's approval** — it appears below only as "the second system", with its domain and its defect generalised.
+The first system is the author's own and its defect is already described publicly on a corrections page, so it is
+discussed openly. No credentials, customer data or business rules appear here. If the co-owner approves, the
+specifics can be restored; until then a reviewer is given the shape of the evidence, not its provenance, and the
+brief is explicit about which is which.
 
 ---
 
@@ -92,10 +95,11 @@ selector gives element kind). No redundancy.
 
 ### What it MISSES — and this is not a caveat, it is half the result
 
-**A second real defect, written by a person in a live product, is not caught.** A portfolio series valued
-holdings in the local currency while the total it was displayed against was normalized (a EUR holding inflated a
-chart by ~8%). Spliced back verbatim: **0 collisions, 0 return-contract mismatches, both axes.** Two independent
-structural reasons, both measured:
+**A second real defect, written by a person in a live system, is not caught.** (This is the co-owned system;
+the defect is stated in general terms — see the disclosure boundary above.) A derived series was computed in one
+denomination while the figure it was presented against was in another, so the two disagreed by the exchange rate
+for any non-normalized holding. Spliced back verbatim from that system's history: **0 collisions, 0
+return-contract mismatches, both axes.** Two independent structural reasons, both measured:
 
 1. Every operation inside the method is internally **consistent** in one currency. The error is the function's
    **output kind** — a whole-function contract mismatch, not an operand pair. The lattice judges operand pairs.
@@ -108,18 +112,19 @@ capability added the moment its test case appears is a capability its test case 
 
 ### Coverage, and the collapse that matters
 
-| | Origin product | Sibling subsystem | Unrelated product |
+| | Origin system | Sibling subsystem | Second system (co-owned) |
 |---|---|---|---|
 | basis sites judged / where a collision is expressible | **191 / 356 (53.7%)** | **127 / 493 (25.6%)** | **5 / 190 (2.6%)** |
 | collisions at HEAD | 0 | 0 | 0 |
 | historical specimen | caught | caught | n/a — controlled mutation caught |
 | false positives | 0 | 0 | 0 |
 
-**The 2.6% is the finding, not a failure to report around.** The analyser transferred byte-identical to an
-unrelated product (a classroom trading game) and bound a 504-site corpus with zero errors — but that domain's
-quantities are house prices, mortgage balances, venture valuations and experience points, which the closed set
-cannot name. **The machinery transferred; the vocabulary did not.** Assess the significance of that split
-directly: it is the difference between a reusable framework and a good rule about one domain.
+**The 2.6% is the finding, not a failure to report around.** The analyser transferred byte-identical to the
+second system — a different product, different solution, different drive — and bound a 504-site corpus with zero
+errors. But that domain's money quantities are largely **not on the axes the closed set defines**: they are
+whole-asset values, outstanding balances, ownership percentages and a non-monetary points currency, none of which
+`PerShare`/`Total` can name. **The machinery transferred; the vocabulary did not.** Assess the significance of
+that split directly: it is the difference between a reusable framework and a good rule about one domain.
 
 ### The two refusals, which are design positions and should be judged as such
 
@@ -129,8 +134,8 @@ directly: it is the difference between a reusable framework and a good rule abou
    label certifies all of those ratios; two labels flag all of them, and most are fine. Both make the checker
    confidently wrong, so it reports nothing. Tests assert the silence with the reason attached.
 2. **Declaring quantities the closed set cannot distinguish was refused even though it would have raised
-   coverage.** In the unrelated product, a native price and a normalized price sit side by side — the 2nd and 3rd
-   largest unreached chain ends, 45 occurrences. Both are per-unit, so the basis axis would have labelled them
+   coverage.** In the second system, a local-denomination price and a normalized one sit side by side — the 2nd and
+   3rd largest unreached chain ends, 45 occurrences. Both are per-unit, so the basis axis would have labelled them
    identically, certified their difference as sound, and shown better coverage. **Declaring them would have made
    the real hazard invisible.**
 
@@ -159,14 +164,16 @@ it appears. Both readings are available and the report should pick one and defen
 - Three further vocabulary forms (single derivation home, sanctioned recompute, assertion ceiling, one-way
   transition) have **live declarations but no extractor** — they are checked only for internal consistency.
 - **Density: 139 declaration sites across 85,208 production LOC = 16.3 per 10k**, inside the 6–20 band the first
-  report proposed, having moved from ~11.7 in a single day when the second axis landed. A third axis needs a
-  density budget.
+  report proposed, having moved from ~11.7 in a single day when the second axis landed. **This is not evidence of
+  usefulness.** It shows only that authoring burden is plausibly tolerable; whether the declarations earn their
+  keep depends on defects found, authoring time, judged coverage and false-positive rate — which is what this
+  report is being asked to rule on. A third axis needs a density budget.
 - Known blind spot, pinned rather than fixed: `Math.Max(localPrice, normalizedPrice)` sets two quantities against
   each other exactly as `a - b` does, and the Math-family rule resolves it through a merge that answers "I cannot
   tell which one comes back" — sound about the result, silent about the comparison.
-- Inexpressible classes found by transfer: currency in a domain with a game currency, non-share asset money,
-  equity percentages, tuple and anonymous-type members, and runtime-keyed field readers (`GetDecimal("name")`),
-  which are core to how one subsystem reads its parameters.
+- Inexpressible classes found by transfer: a non-monetary points currency, whole-asset money, ownership
+  percentages, tuple and anonymous-type members, and runtime-keyed field readers (`GetDecimal("name")`), which are
+  core to how one subsystem reads its parameters.
 
 ---
 
