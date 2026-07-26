@@ -25,12 +25,16 @@ It provides reusable machinery for describing meanings and business invariants, 
 
 ### What does not live there
 
-* CompanyGraph or CleverShares production code.
+* Any examined system's production code.
 * Their databases, private data, credentials, and product behaviour.
 * Customer source code or confidential business rules.
 * One enormous shared calculation library that every application must depend upon.
 
 Production calculations may remain local and specialised. Smallbox Invariants stands outside the application and checks whether those implementations preserve their declared meaning.
 
-CompanyGraph and CleverShares are its first real test systems and case studies. **Smallbox Labs owns and develops the public framework; the products are examined by it rather than owning it.**
+CompanyGraph and a second production system are its first real test systems and case studies. **Smallbox Labs owns and develops the public framework; the products are examined by it rather than owning it.**
+
+<!-- The second system is deliberately unnamed here: it is CO-OWNED, and naming it as a case study is the
+     co-owner's decision to make, not ours. Restore the name once they approve. CompanyGraph is named because it
+     is wholly owned and its relevant defect is already described on its own public corrections page. -->
 
